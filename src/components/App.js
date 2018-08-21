@@ -6,6 +6,7 @@ import LinkList from './LinkList.component';
 import CreateLink from './CreateLink.component';
 import Header from './Header.component';
 import Auth from './Auth.component';
+import Search from './Search.component';
 
 // styles
 import '../styles/App.css';
@@ -19,9 +20,10 @@ const App = () => (
         <Route exact path="/" component={LinkList} />
         <Route exact path="/create" component={CreateLink} />
         <Route exact path="/auth" component={Auth} />
+        <Route exact path='/search' component={Search} />
       </Switch>
     </div>
   </div>
-)
+);
 
 export default App;
