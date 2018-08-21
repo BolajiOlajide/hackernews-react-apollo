@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import LinkList from './LinkList.component';
 import CreateLink from './CreateLink.component';
 import Header from './Header.component';
+import Auth from './Auth.component';
 
 // styles
 import '../styles/App.css';
@@ -17,6 +18,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={LinkList} />
         <Route exact path="/create" component={CreateLink} />
+        <Route exact path="/auth" component={Auth} />
       </Switch>
     </div>
   </div>
