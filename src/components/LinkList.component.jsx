@@ -9,6 +9,15 @@ import Link from './Link.component';
 
 
 class LinkList extends Component {
+    _updateCacheAfterVote = (store, createVote, linkId) => {
+      const data = store.readQuery({ query: FEED_QUERY })
+
+      const votedLink = data.feed.links.find(link => link.id === linkId)
+      votedLink.votes = createVote.link.votes
+
+      store.writeQuery({ query: FEED_QUERY, data })
+    }
+
     render() {
       return (
         <Query query={FEED_QUERY}>
@@ -20,7 +29,9 @@ class LinkList extends Component {
 
             return (
               <div>
-                {linksToRender.map(link => <Link key={link.id} link={link} />)}
+                {linksToRender.map((link, index) => {
+                  return  <Link key={link.id} link={link} index={index} updateStoreAfterVote={this._updateCacheAfterVote} />
+                })}
               </div>
             )
           }}

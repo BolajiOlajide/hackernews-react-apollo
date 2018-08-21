@@ -9,6 +9,16 @@ export const FEED_QUERY = gql`
       createdAt
       url
       description
+      votes {
+        id
+        user {
+          id
+        }
+      }
+      postedBy {
+        id
+        name
+      }
     }
   }
 }
