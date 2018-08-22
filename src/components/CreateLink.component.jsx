@@ -7,6 +7,9 @@ import { POST_MUTATION } from '../mutations/link.mutation';
 // graphql queries
 import { FEED_QUERY } from '../queries/link.query';
 
+// constants
+import { LINKS_PER_PAGE } from '../utils/constants';
+
 
 class CreateLink extends Component {
   state = {
@@ -45,14 +48,21 @@ class CreateLink extends Component {
         <Mutation
           mutation={POST_MUTATION}
           variables={{ description, url }}
-          onCompleted={() => this.props.history.push('/')}
+          onCompleted={() => this.props.history.push('/new/1')}
           update={(store, { data: { post } }) => {
-            const data = store.readQuery({ query: FEED_QUERY });
-            data.feed.links.unshift(post);
+            const first = LINKS_PER_PAGE
+            const skip = 0
+            const orderBy = 'createdAt_DESC'
+            const data = store.readQuery({
+              query: FEED_QUERY,
+              variables: { first, skip, orderBy }
+            })
+            data.feed.links.unshift(post)
             store.writeQuery({
               query: FEED_QUERY,
-              data
-            });
+              data,
+              variables: { first, skip, orderBy }
+            })
           }}
         >
             {postMutation => <button onClick={postMutation}>Submit</button>}
